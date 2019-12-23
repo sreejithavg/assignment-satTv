@@ -8,23 +8,15 @@ import (
 	"strings"
 )
 
-func (u *User)CreateUser()  {
-	fmt.Println("Enter the UserName : ")
-	_, err := fmt.Scanf("%s", &u.UserName)
-	if err != nil {
-		log.Fatal("Error occurred while fetching the username ",err)
-	}
-	fmt.Println("Enter the email_ID : ")
-	_, err = fmt.Scanf("%s", &u.EmailID)
-	if err != nil {
-		log.Fatal("Error occurred while fetching the EmailID ")
-	}
-	fmt.Println("Enter the Phone Number : ")
-	_, err = fmt.Scanf("%d", &u.PhoneNumber)
-	if err != nil {
-		log.Fatal("Error occurred while fetching the phone no: ")
-	}
+func (u *User)CreateUser(username string,email string,ph int) error {
+	u.UserName=username
+	u.EmailID=email
+	u.PhoneNumber=ph
 	u.Balance=100.0
+	if u==nil{
+		return errors.New("fail to create ")
+	}
+	return nil
 }
 func (u *User)Recharge(amount float32)  {
 	u.Balance=u.Balance+amount
@@ -66,18 +58,18 @@ func (u *User)AddChannels(channel string,months int) (float32,error) {
 			amount=amount+(Zee.Price*float32(months))
 		case Sony.ChannelName:
 			u.Subscription.Channel=append(u.Subscription.Channel,Sony)
-			amount=amount+(Zee.Price*float32(months))
+			amount=amount+(Sony.Price*float32(months))
 		case StarPlus.ChannelName:
 			u.Subscription.Channel=append(u.Subscription.Channel,StarPlus)
-			amount=amount+(Zee.Price*float32(months))
+			amount=amount+(StarPlus.Price*float32(months))
 		case Discovery.ChannelName :
 			u.Subscription.Channel=append(u.Subscription.Channel,StarPlus)
-			amount=amount+(Zee.Price*float32(months))
+			amount=amount+(Discovery.Price*float32(months))
 		case NatGeo.ChannelName:
 			u.Subscription.Channel=append(u.Subscription.Channel,StarPlus)
-			amount=amount+(Zee.Price*float32(months))
+			amount=amount+(NatGeo.Price*float32(months))
 		default:
-			return amount,errors.New("invalid Channel. cannot subscribe! ")
+			return 0,errors.New("invalid Channel. cannot subscribe! ")
 		}
 	}
 	return amount,nil

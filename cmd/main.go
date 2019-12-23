@@ -8,9 +8,31 @@ import (
 
 func main() {
 	// create a SatTV user
-	var service int
+	var service,phoneNumber int
+	var username,email string
 	satUser := new(pkg.User)
-	satUser.CreateUser()
+	fmt.Println("Enter the UserName : ")
+	_, err := fmt.Scanf("%s", &username)
+	if err != nil {
+		log.Fatal("Error occurred while fetching the username ",err)
+	}
+	fmt.Println("Enter the email_ID : ")
+	_, err = fmt.Scanf("%s", &email)
+	if err != nil {
+		log.Fatal("Error occurred while fetching the EmailID ")
+
+	}
+	fmt.Println("Enter the Phone Number : ")
+	_, err = fmt.Scanf("%d", &phoneNumber)
+	if err != nil {
+		log.Fatal("Error occurred while fetching the phone no: ")
+
+	}
+	err=satUser.CreateUser(username,email,phoneNumber)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 	fmt.Println("Welcome to SatTV \n" +
 		"1. View current balance in the account \n" +
 		"2. Recharge Account \n" +
@@ -147,7 +169,7 @@ SWITCH:
 		break
 
 	default:
-		log.Fatal("invalid choice !")
+		log.Println("invalid choice !")
 		goto SWITCH
 	}
 

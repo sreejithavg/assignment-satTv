@@ -47,7 +47,7 @@ var StarPlus =Channel{
 	Price:       20,
 }
 var Discovery =Channel{
-	ChannelName: "LearnCooking Service",
+	ChannelName: "Discovery",
 	Price:       10,
 }
 var NatGeo =Channel{
